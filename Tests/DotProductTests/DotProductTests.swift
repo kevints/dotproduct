@@ -22,6 +22,7 @@ final class DotProductTests: XCTestCase {
         Self.testDatas.map(\.answer)
     }
     
+#if canImport(Darwin)
     override class var defaultMetrics: [XCTMetric] {
         super.defaultMetrics + [XCTCPUMetric(limitingToCurrentThread: true), XCTMemoryMetric()]
     }
@@ -29,6 +30,11 @@ final class DotProductTests: XCTestCase {
     func doMeasure(_ block: () -> Void) {
         super.measure(metrics: Self.defaultMetrics, block: block)
     }
+#else
+    func doMeasure(_ block: () -> Void) {
+        measure(block: block)
+    }
+#endif
     
     override class func setUp() {
         var isReleaseMode = true
@@ -74,11 +80,13 @@ final class DotProductTests: XCTestCase {
         }
     }
     
+#if canImport(Darwin)
     override class var defaultMeasureOptions: XCTMeasureOptions {
         let result = XCTMeasureOptions()
         result.iterationCount = Self.iterations
         return result
     }
+#endif
     
     private func assertResults(_ results: [ProgressResult], file: StaticString = #file, line: UInt = #line) {
         for (result, expected) in zip(results, expectedResults) {
