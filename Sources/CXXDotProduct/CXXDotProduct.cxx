@@ -131,10 +131,9 @@ extern "C" ProgressResult Aggregator_Execute(Aggregator* aggregator) {
 
 extern "C" void Aggregator_Delete(Aggregator* aggregator) {
     if (aggregator != nullptr) {
-        size_t size = aggregator->vtable->size();
         size_t alignment = aggregator->vtable->align();
         void (*destroy)(Aggregator*) = aggregator->vtable->destroy;
         (*destroy)(aggregator);
-        ::operator delete(aggregator, size, static_cast<std::align_val_t>(alignment));
+        ::operator delete(static_cast<void*>(aggregator), static_cast<std::align_val_t>(alignment));
     }
 }

@@ -1,5 +1,6 @@
 #include "CXXDotProduct.h"
 
+#include <exception>
 #include <valarray>
 
 ProgressResult aggregate(std::valarray<float>&& progresses, std::valarray<float>&& weights) noexcept {

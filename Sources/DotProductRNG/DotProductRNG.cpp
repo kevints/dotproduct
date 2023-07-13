@@ -1,5 +1,6 @@
 #include "DotProductRNG.h"
 
+#include <exception>
 #include <random>
 
 struct DotProductRNG final {
