@@ -16,5 +16,5 @@ jobs:
           swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v3
       - name: Run tests
-        run: swift test --configuration=release -Xcxx -stdlib=libc++
+        run: swift test -v --configuration=release
 
